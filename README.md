@@ -21,32 +21,32 @@ EDA
 ```
 Checking dimensions
 ```
-![](../../Obrazy/shape_1.png)
+![](visualizations/readme/shape_1.png)
 
 ```
 Showing sample data
 ```
-![](../../Obrazy/sample.png)
+![](visualizations/readme/sample.png)
 
 ```
 Counting column types (Only num)
 ```
-![](../../Obrazy/types.png)
+![](visualizations/readme/types.png)
 
 ```
 Counting Targets
 ```
-![](../../Obrazy/labels.png)
+![](visualizations/readme/labels.png)
 
 ```
 Counting missing values
 ```
-![](../../Obrazy/brak.png)
+![](visualizations/readme/brak.png)
 
 ```
 Counting duplicates
 ```
-![](../../Obrazy/brak.png)
+![](visualizations/readme/brak.png)
 
 ```
 Counting basic metrics in dataset
@@ -55,18 +55,18 @@ We see that we have high values and that the
 average will not show any meaningful.
 Variance shows how the data are similar in column
 ```
-![](../../Obrazy/desc.png)
+![](visualizations/readme/desc.png)
 
 ```
 Showing how values are distributed.
 We can see that values are normally distributed
 ```
-![](../../Obrazy/plot_1.png)
+![](visualizations/readme/plot_1.png)
 
 ```
 Checking if they are linearly separable (reloaded several times)
 ```
-![](../../Obrazy/corr.png)
+![](visualizations/readme/corr.png)
 
 Metrics
 ==============================
@@ -81,15 +81,16 @@ Baseline
 ```
 When dividing the data, I used "stratify = y" to evenly distribute the data.
 ```
-![](../../Obrazy/testy.png)
+![](visualizations/readme/testy.png)
 
 ```
 I used LGBM becouse the data is not linear so I was looking
 woody model. The only parameter which I used for the model was:
 class_weight = "balanced" because the data is not evenly distributed
 ```
-![](../../Obrazy/lgbm.png)
-![](../../Obrazy/baseline.png)
+![](visualizations/readme/lgbm.png)
+
+![](visualizations/readme/baseline.png)
 
 * I should have used The decision tree should be a little lighter
 
@@ -150,7 +151,14 @@ Results
 Kfold cv = 10
 np.mean() = 0.9997028552786172
 ```
-![](visualizations/final_data_matrix.png)
+![](visualizations/finish_data_matrix.png)
+
+```
+(Without KernelPCA, Sampling) Model_3
+Kfold cv = 3
+np.mean() = 0.9473684210526316
+```
+![](visualizations/finish_data_matrix_3.png)
 
 Created by Michał Banach
 ==============================
