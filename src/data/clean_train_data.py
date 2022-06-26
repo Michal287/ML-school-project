@@ -1,7 +1,6 @@
 import pandas as pd
 from imblearn.over_sampling import SMOTE
 from sklearn.decomposition import KernelPCA
-import h5py
 import joblib
 
 
@@ -25,8 +24,8 @@ def dimension_reduction(X, y):
 
 
 def to_hdf(path, dataset_name, data):
-    with h5py.File(path, 'w') as hf:
-        hf.create_dataset(dataset_name, data=data)
+    df = pd.DataFrame(data=data)
+    df.to_hdf(path, key=dataset_name)
 
 
 def main():
