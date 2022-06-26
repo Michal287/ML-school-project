@@ -1,6 +1,5 @@
 import pandas as pd
 import joblib
-import h5py
 
 
 def load_data():
@@ -13,8 +12,8 @@ def dimension_reduction(X):
 
 
 def to_hdf(path, dataset_name, data):
-    with h5py.File(path, 'w') as hf:
-        hf.create_dataset(dataset_name, data=data)
+    df = pd.DataFrame(data=data)
+    df.to_hdf(path, key=dataset_name)
 
 
 def main():

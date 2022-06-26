@@ -1,3 +1,5 @@
+/models/*
+
 # Custom
 /data/
 /notebooks/.neptune
