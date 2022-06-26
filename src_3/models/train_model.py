@@ -91,11 +91,11 @@ def main():
         X_train, X_test = X.iloc[train_index, :], X.iloc[test_index, :]
         y_train, y_test = y.iloc[train_index], y.iloc[test_index]
 
-        #print('Sampling ...')
-        #X_train, y_train = add_sample(X_train, y_train)
+        print('Sampling ...')
+        X_train, y_train = add_sample(X_train, y_train)
 
-        #print('Dimension reduction ...')
-        #X_train, X_test = dimension_reduction(X_train, y_train, X_test)
+        print('Dimension reduction ...')
+        X_train, X_test = dimension_reduction(X_train, y_train, X_test)
 
         print('Min Max Scaler ...')
         X_minmax_train, X_minmax_test = min_max_scaler(X_train, X_test)
