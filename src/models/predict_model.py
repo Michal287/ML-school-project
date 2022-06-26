@@ -2,8 +2,8 @@ import pandas as pd
 import joblib
 
 
-def load_data(path):
-    return pd.read_hdf(path)
+def load_data():
+    return pd.read_hdf('../../data/processed/test_data.h5')
 
 
 def min_max_scaler(X, path):
@@ -21,7 +21,7 @@ def export(labels, path):
 
 
 def main():
-    X_test = load_data('../../data/processed/test_data.h5')
+    X_test = load_data()
     X_test = min_max_scaler(X_test, '../../models/min_max_scaler.pkl')
 
     export(predict(X_test, '../../models/knn.pkl'), "../../data/export/predicted_labels.csv")
