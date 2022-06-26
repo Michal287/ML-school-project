@@ -9,12 +9,24 @@ import joblib
 
 
 def load_data():
+    """
+        Load data
+    """
     X = pd.read_hdf('../../data/processed/train_data.h5')
     y = pd.read_hdf('../../data/processed/train_labels.h5')
     return X, y
 
 
-def min_max_scaler(X_train, X_test):
+def min_max_scaler(X_train: np.array, X_test: np.array) -> tuple:
+    """
+        1. Init scaler model
+        2. Fit model
+        3. Save to file
+        4. transform
+
+        :X_train: np.array:
+        :X_test: np.array:
+    """
     scaler = MinMaxScaler(clip=True, feature_range=(-1.0, 1.0))
     scaler.fit(X_train)
     joblib.dump(scaler, '../../models/min_max_scaler.pkl')
@@ -22,11 +34,18 @@ def min_max_scaler(X_train, X_test):
 
 
 def main():
+    """
+    1. Load data
+    2. Init Kfold
+    3. Init model
+    4. Split to train and test
+    5. Scale data
+    6. Fitting model
+    7. Preditction and save to list
+    8. Saving model
+    """
+
     X, y = load_data()
-
-    #X_train, X_test, y_train, y_test = train_test_split(X, np.ravel(y), test_size=0.2, shuffle=True)
-
-    #X_train, X_test = min_max_scaler(X_train, X_test)
 
     cv = KFold(n_splits=10, shuffle=True)
 
@@ -34,9 +53,6 @@ def main():
     knn = KNeighborsClassifier(algorithm='ball_tree', leaf_size=31, metric='manhattan',
                                n_jobs=1, n_neighbors=1, p=1.4528804003307858,
                                weights='distance')
-
-    #knn.fit(X_train, y_train)
-    #y_pred = knn.predict(X_test)
 
     for train_index, test_index in cv.split(X, y):
         X_train, X_test = X.iloc[train_index, :], X.iloc[test_index, :]
@@ -52,7 +68,6 @@ def main():
 
     print(f1_scores)
     print(np.mean(f1_scores))
-    #print(f1_score(y_test, y_pred))
 
 
 if __name__ == '__main__':
