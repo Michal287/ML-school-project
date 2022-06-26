@@ -89,6 +89,7 @@ woody model. The only parameter which I used for the model was:
 class_weight = "balanced" because the data is not evenly distributed
 ```
 ![](visualizations/readme/lgbm.png)
+
 ![](visualizations/readme/baseline.png)
 
 * I should have used The decision tree should be a little lighter
@@ -150,7 +151,14 @@ Results
 Kfold cv = 10
 np.mean() = 0.9997028552786172
 ```
-![](visualizations/final_data_matrix.png)
+![](visualizations/finish_data_matrix.png)
+
+```
+(Without KernelPCA, Sampling) Model_3
+Kfold cv = 3
+np.mean() = 0.9473684210526316
+```
+![](visualizations/finish_data_matrix_3.png)
 
 Created by Michał Banach
 ==============================

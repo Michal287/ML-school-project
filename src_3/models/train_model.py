@@ -7,6 +7,8 @@ from sklearn.metrics import f1_score
 import joblib
 from imblearn.over_sampling import SMOTE
 from sklearn.decomposition import KernelPCA
+from sklearn.metrics import ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
 
 
 def load_data() -> tuple:
@@ -30,7 +32,7 @@ def min_max_scaler(X_train: np.array, X_test: np.array) -> tuple:
     """
     scaler = MinMaxScaler(clip=True, feature_range=(-1.0, 1.0))
     scaler.fit(X_train)
-    joblib.dump(scaler, '../../models/min_max_scaler_2.pkl')
+    joblib.dump(scaler, '../../models/min_max_scaler_3.pkl')
     return scaler.transform(X_train), scaler.transform(X_test)
 
 
@@ -55,7 +57,7 @@ def dimension_reduction(X_train: np.array, y_train: np.array, X_test: np.array) 
     """
     kpca = KernelPCA(n_components=90, gamma=None, kernel="linear")
     kpca.fit(X_train, y_train)
-    joblib.dump(kpca, '../../models/kpca_dimension_reduction_2.pkl')
+    joblib.dump(kpca, '../../models/kpca_dimension_reduction_3.pkl')
     return kpca.transform(X_train), kpca.transform(X_test)
 
 
@@ -78,7 +80,7 @@ def main():
 
     X, y = load_data()
 
-    cv = KFold(n_splits=5, shuffle=True)
+    cv = KFold(n_splits=3, shuffle=True)
 
     f1_scores = []
     knn = KNeighborsClassifier(algorithm='brute', leaf_size=39, metric='manhattan',
@@ -89,21 +91,25 @@ def main():
         X_train, X_test = X.iloc[train_index, :], X.iloc[test_index, :]
         y_train, y_test = y.iloc[train_index], y.iloc[test_index]
 
-        print('Sampling ...')
-        X_train, y_train = add_sample(X_train, y_train)
+        #print('Sampling ...')
+        #X_train, y_train = add_sample(X_train, y_train)
 
-        print('Dimension reduction ...')
-        X_train, X_test = dimension_reduction(X_train, y_train, X_test)
+        #print('Dimension reduction ...')
+        #X_train, X_test = dimension_reduction(X_train, y_train, X_test)
 
         print('Min Max Scaler ...')
-        X_train, X_test = min_max_scaler(X_train, X_test)
+        X_minmax_train, X_minmax_test = min_max_scaler(X_train, X_test)
 
         print('Training model ...')
-        knn.fit(X_train, np.ravel(y_train))
-        y_pred = knn.predict(X_test)
+        knn.fit(X_minmax_train, np.ravel(y_train))
+        y_pred = knn.predict(X_minmax_test)
         f1_scores.append(f1_score(np.ravel(y_test), y_pred))
+        print(f'{f1_score(np.ravel(y_test), y_pred)}\n\n')
 
-    joblib.dump(knn, '../../models/knn_2.pkl')
+    joblib.dump(knn, '../../models/knn_3.pkl')
+
+    ConfusionMatrixDisplay.from_predictions(y_test, y_pred, cmap=plt.cm.Blues)
+    plt.savefig('../../visualizations/finish_data_matrix_3.png')
 
     print(f1_scores)
     print(np.mean(f1_scores))

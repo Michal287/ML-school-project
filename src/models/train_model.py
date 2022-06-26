@@ -4,8 +4,9 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 from sklearn.metrics import f1_score
-from sklearn.model_selection import train_test_split
+from sklearn.metrics import ConfusionMatrixDisplay
 import joblib
+import matplotlib.pyplot as plt
 
 
 def load_data():
@@ -58,13 +59,16 @@ def main():
         X_train, X_test = X.iloc[train_index, :], X.iloc[test_index, :]
         y_train, y_test = y.iloc[train_index], y.iloc[test_index]
 
-        X_train, X_test = min_max_scaler(X_train, X_test)
+        X_minmax_train, X_minmax_test = min_max_scaler(X_train, X_test)
 
-        knn.fit(X_train, np.ravel(y_train))
-        y_pred = knn.predict(X_test)
+        knn.fit(X_minmax_train, np.ravel(y_train))
+        y_pred = knn.predict(X_minmax_test)
         f1_scores.append(f1_score(np.ravel(y_test), y_pred))
 
     joblib.dump(knn, '../../models/knn.pkl')
+
+    ConfusionMatrixDisplay.from_predictions(y_test, y_pred, cmap=plt.cm.Blues)
+    plt.savefig('../../visualizations/finish_data_matrix.png')
 
     print(f1_scores)
     print(np.mean(f1_scores))

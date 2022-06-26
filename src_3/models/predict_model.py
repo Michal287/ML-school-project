@@ -17,7 +17,7 @@ def min_max_scaler(X: np.array) -> np.array:
 
         :X: np.array:
     """
-    scaler = joblib.load('../../models/min_max_scaler_2.pkl')
+    scaler = joblib.load('../../models/min_max_scaler_3.pkl')
     return scaler.transform(X)
 
 
@@ -28,7 +28,7 @@ def dimension_reduction(X: np.array) -> np.array:
 
         :X: np.array:
     """
-    kpca = joblib.load('../../models/kpca_dimension_reduction_2.pkl')
+    kpca = joblib.load('../../models/kpca_dimension_reduction.pkl')
     return kpca.transform(X)
 
 
@@ -59,10 +59,10 @@ def main():
         4. Exporting to csv
     """
     X_test = load_data('../../data/raw/test_data.csv')
-    X_test = dimension_reduction(X_test)
+    #X_test = dimension_reduction(X_test)
     X_test = min_max_scaler(X_test)
 
-    export(predict(X_test, '../../models/knn_2.pkl'), "../../data/export/predicted_labels_2.csv")
+    export(predict(X_test, '../../models/knn_3.pkl'), "../../data/export/predicted_labels_3.csv")
 
 
 if __name__ == '__main__':
