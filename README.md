@@ -153,13 +153,6 @@ np.mean() = 0.9997028552786172
 ```
 ![](visualizations/finish_data_matrix.png)
 
-```
-(Without KernelPCA, Sampling) Model_3
-Kfold cv = 3
-np.mean() = 0.9473684210526316
-```
-![](visualizations/finish_data_matrix_3.png)
-
 Created by Michał Banach
 ==============================
 
