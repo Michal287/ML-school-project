@@ -151,7 +151,6 @@ Results
 Kfold cv = 10
 np.mean() = 0.9997028552786172
 ```
-![](visualizations/finish_data_matrix.png)
 
 Created by Michał Banach
 ==============================
